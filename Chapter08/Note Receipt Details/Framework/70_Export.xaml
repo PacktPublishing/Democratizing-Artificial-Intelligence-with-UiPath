@@ -1,0 +1,182 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="_70_Export" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:p="http://schemas.uipath.com/workflow/activities/document-processing-contracts/results" xmlns:p1="http://schemas.uipath.com/workflow/activities/intelligentocr/extraction" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:uia="clr-namespace:UiPathTeam.Interactive.Activities;assembly=UiPathTeam.Interactive.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property sap2010:Annotation.AnnotationText="The results of the data extraction process." Name="in_ExtractionResults" Type="InArgument(p:ExtractionResult)" />
+    <x:Property sap2010:Annotation.AnnotationText="Dictionary structure to store configuration data of the process (settings, constants and assets)." Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:String))" />
+    <x:Property sap2010:Annotation.AnnotationText="Used to control the number of attempts of retrying in case of a system exception." Name="in_MaxAttempts" Type="InArgument(x:Int32)" />
+    <x:Property sap2010:Annotation.AnnotationText="Used to control the amount of time between retries in the Retry Scope activity." Name="in_RetryInterval" Type="InArgument(x:TimeSpan)" />
+    <x:Property Name="in_TargetDocument" Type="InArgument(x:String)" />
+    <x:Property Name="io_WindowIdentifier" Type="InOutArgument(x:Int32)" />
+  </x:Members>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>1620,1900</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>_70_Export_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="64">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>System.ComponentModel</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.Xml.Serialization</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>UiPath.Excel</x:String>
+      <x:String>UiPath.Excel.Activities</x:String>
+      <x:String>UiPath.DocumentProcessing.Contracts.Results</x:String>
+      <x:String>UiPath.IntelligentOCR.Activities.DataExtraction</x:String>
+      <x:String>UiPathTeam.Interactive.Activities.Properties</x:String>
+      <x:String>UiPathTeam.Interactive.Activities</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="64">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>UiPath.Excel</AssemblyReference>
+      <AssemblyReference>UiPath.DocumentUnderstanding.ML.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR</AssemblyReference>
+      <AssemblyReference>UiPath.OmniPage.Activities.Design</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>UiPath.Excel.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.DocumentProcessing.Contracts</AssemblyReference>
+      <AssemblyReference>UiPath.IntelligentOCR.Activities</AssemblyReference>
+      <AssemblyReference>UiPathTeam.Interactive.Activities</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <Sequence sap2010:Annotation.AnnotationText="Post-extraction &amp; Data Export&#xA;&#xA;Post extraction - any logic that must be executed after data extraction and prior to the data export belongs here (eg: format the data according to an export schema)&#xA;&#xA;Data Export - output the data to make it usable by the Business users or by subsequent processes. We recommend using UiPath's DataService." DisplayName="Export" sap:VirtualizedContainerService.HintSize="876,1835.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <Sequence.Variables>
+      <Variable x:TypeArguments="x:String" sap2010:Annotation.AnnotationText="Used to store the path to the file where the extracted data will be saved." Name="outputPath" />
+      <Variable x:TypeArguments="sd:DataSet" sap2010:Annotation.AnnotationText="Used to store the exported data from the ExtractionResults in the Export Extraction Results activity." Name="exportDataSet" />
+    </Sequence.Variables>
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message - Start Data Export" sap:VirtualizedContainerService.HintSize="834,52.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Message="[in_Config(&quot;LogMessage_DataExportStart&quot;) + &quot; &quot; + in_ExtractionResults.ResultsDocument.DocumentTypeId + &quot; (pag &quot; +  (in_ExtractionResults.ResultsDocument.Bounds.StartPage + 1).ToString + &quot;-&quot; + (in_ExtractionResults.ResultsDocument.Bounds.StartPage + in_ExtractionResults.ResultsDocument.Bounds.PageCount).ToString + &quot;)&quot; + Environment.NewLine + in_Config(&quot;logKey&quot;)]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+          <x:Boolean x:Key="IsPinned">False</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:LogMessage>
+    <ui:Comment DisplayName="Comment - Example Export" sap:VirtualizedContainerService.HintSize="834,132.666666666667" sap2010:WorkflowViewState.IdRef="Comment_1" Text="Please note that the below example is intended for ilustrative purposes only. The export to excel was just an example. Ideally you would want to use the data extracted in another process." />
+    <uia:DisplayMessage BackColor="{x:Null}" FontSize="{x:Null}" ForeColor="{x:Null}" DisplayName="Display Message" Handle="[io_WindowIdentifier]" Hide="0" sap:VirtualizedContainerService.HintSize="834,127.333333333333" sap2010:WorkflowViewState.IdRef="DisplayMessage_1" Message="[&quot;Exporting info from: &quot; + in_TargetDocument]" NewStyle="True" Position="BottomCenter" Preset="Info">
+      <uia:DisplayMessage.Opacity>
+        <InArgument x:TypeArguments="s:Nullable(x:Double)">
+          <Literal x:TypeArguments="s:Nullable(x:Double)" Value="0.8" />
+        </InArgument>
+      </uia:DisplayMessage.Opacity>
+    </uia:DisplayMessage>
+    <Assign sap2010:Annotation.AnnotationText="Adding the page range here ensures a unique export name in case PDF splitting is DISABLED" DisplayName="Assign Output File Name" sap:VirtualizedContainerService.HintSize="834,124" sap2010:WorkflowViewState.IdRef="Assign_1">
+      <Assign.To>
+        <OutArgument x:TypeArguments="x:String">[outputPath]</OutArgument>
+      </Assign.To>
+      <Assign.Value>
+        <InArgument x:TypeArguments="x:String">[Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Desktop), "Note_Receipt_Details.xlsx")]</InArgument>
+      </Assign.Value>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </Assign>
+    <p1:ExportExtractionResults sap2010:Annotation.AnnotationText="in_ExtractionResults.AsDataSet() method can also be used" DataSet="[exportDataSet]" DisplayName="Export Extraction Results - Export" ExtractionResult="[in_ExtractionResults]" sap:VirtualizedContainerService.HintSize="834,226" sap2010:WorkflowViewState.IdRef="ExportExtractionResults_1" IncludeConfidence="True" IncludeOCRConfidence="False">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </p1:ExportExtractionResults>
+    <ui:RetryScope sap2010:Annotation.AnnotationText="Exports could be stored in a shared location. The retry mechanism is used to compensate for minor fluctuatios in network stability and other recoverable issues." DisplayName="Retry Scope - Export Data" sap:VirtualizedContainerService.HintSize="834,768.666666666667" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="[in_MaxAttempts]" RetryInterval="[in_RetryInterval]">
+      <ui:RetryScope.ActivityBody>
+        <ActivityAction>
+          <ui:ForEach x:TypeArguments="sd:DataTable" CurrentIndex="{x:Null}" DisplayName="For Each Exported Table" sap:VirtualizedContainerService.HintSize="792,546" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[exportDataSet.Tables]">
+            <ui:ForEach.Body>
+              <ActivityAction x:TypeArguments="sd:DataTable">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="sd:DataTable" Name="table" />
+                </ActivityAction.Argument>
+                <Sequence sap:VirtualizedContainerService.HintSize="755.333333333333,421.333333333333" sap2010:WorkflowViewState.IdRef="Sequence_3">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <If Condition="[File.Exists(outputPath)]" sap:VirtualizedContainerService.HintSize="713,329" sap2010:WorkflowViewState.IdRef="If_1">
+                    <If.Then>
+                      <ui:AppendRange DataTable="[table]" DisplayName="Append Range" sap:VirtualizedContainerService.HintSize="334,115" sap2010:WorkflowViewState.IdRef="AppendRange_1" SheetName="[table.TableName]" WorkbookPath="[outputPath]" />
+                    </If.Then>
+                    <If.Else>
+                      <ui:WriteRange AddHeaders="True" sap2010:Annotation.AnnotationText="Since we are running inside a parallel for each, it is NOT advisable to use Excel Application Scope nor other Excel activities here!" DataTable="[table]" DisplayName="Write Range - Write Table to XLSX" sap:VirtualizedContainerService.HintSize="334,172" sap2010:WorkflowViewState.IdRef="WriteRange_1" SheetName="[table.TableName]" StartingCell="A1" WorkbookPath="[outputPath]">
+                        <sap:WorkflowViewStateService.ViewState>
+                          <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                            <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                          </scg:Dictionary>
+                        </sap:WorkflowViewStateService.ViewState>
+                      </ui:WriteRange>
+                    </If.Else>
+                  </If>
+                </Sequence>
+              </ActivityAction>
+            </ui:ForEach.Body>
+          </ui:ForEach>
+        </ActivityAction>
+      </ui:RetryScope.ActivityBody>
+      <ui:RetryScope.Condition>
+        <ActivityFunc x:TypeArguments="x:Boolean" />
+      </ui:RetryScope.Condition>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:RetryScope>
+  </Sequence>
+</Activity>
